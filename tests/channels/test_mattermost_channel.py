@@ -270,7 +270,9 @@ async def test_send_splits_long_message() -> None:
     ch._http = _FakeHttpClient()
     ch._bot_user_id = "bot-user-id"
 
-    long_text = "A" * 20_000  # exceeds MM_MAX_POST_LEN
+    from nanobot.channels.mattermost import MM_MAX_POST_LEN
+
+    long_text = "A" * (MM_MAX_POST_LEN + 4_000)  # Exceeds the per-post limit → should split
     await ch.send(OutboundMessage(
         channel="mattermost",
         chat_id="channel-abc",

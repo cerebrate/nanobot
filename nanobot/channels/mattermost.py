@@ -423,7 +423,7 @@ class MattermostChannel(BaseChannel):
                     "user_id": self._bot_user_id,
                     "post_id": post_id,
                     "emoji_name": emoji_name,
-                    "create_at": 0,
+                    "create_at": 0,  # Required by MM API; server overrides with actual timestamp
                 },
             )
             resp.raise_for_status()
